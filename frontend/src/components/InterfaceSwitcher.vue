@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import TitleSetter from './TitleSetter.vue'
-import {Reset, Title} from "../../wailsjs/go/main/App";
+import {DebugLog, Reset, Title} from "../../wailsjs/go/main/App";
 import WordProcessor from "./WordProcessor.vue";
 import { titleData } from "./TitleSetter.vue"
 import {reactive} from "vue";
@@ -11,6 +11,9 @@ let novel = reactive({
   titleSet: false,
 });
 
+function exportDebugLog() {
+  DebugLog("", true)
+}
 
 function getTitle(){
   Title().then(result => {
@@ -34,6 +37,7 @@ function resetNovel(){
   <TitleSetter v-if="!titleData.ready" />
   <button class="btn" @click="resetNovel" v-if="titleData.ready">Delete it all</button>
   <WordProcessor v-if="titleData.ready" />
+  <button class="btn" @click="exportDebugLog">Export Debug Log</button>
 </template>
 
 <style scoped>
